@@ -1,3 +1,4 @@
+import { AuthButtons, SignInButton, SignUpButton } from "./styled/AuthBtns";
 import {
   Navbar,
   Nav,
@@ -15,11 +16,13 @@ export default function AppNavbar({ isDark, toggleTheme }) {
     { id: 3, name: "Pages" },
     { id: 4, name: "Accounts" },
   ];
+
   return (
     <Navbar
       bg={isDark ? "dark" : "light"}
       variant={isDark ? "dark" : "light"}
       expand="lg"
+      className="shadow-sm"
     >
       <Container>
         <Navbar.Brand>Geeks</Navbar.Brand>
@@ -48,24 +51,32 @@ export default function AppNavbar({ isDark, toggleTheme }) {
               </NavDropdown>
             );
           })}
-          <SearchInput />
+          <SearchInput isDark={isDark} />
         </Nav>
 
-        {/* THEME DROPDOWN */}
-        <Dropdown as={ButtonGroup}>
-          <Dropdown.Toggle variant={isDark ? "outline-light" : "outline-dark"}>
-            🌙
-          </Dropdown.Toggle>
+        <div className="d-flex align-items-center gap-3">
+          <Dropdown as={ButtonGroup}>
+            <Dropdown.Toggle
+              variant={isDark ? "outline-light" : "outline-dark"}
+            >
+              {isDark ? "light" : "dark"}
+            </Dropdown.Toggle>
 
-          <Dropdown.Menu align="end">
-            <Dropdown.Item onClick={() => toggleTheme("light")}>
-              ☀️ Light
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => toggleTheme("dark")}>
-              🌙 Dark
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+            <Dropdown.Menu align="end">
+              <Dropdown.Item onClick={() => toggleTheme("light")}>
+                Light
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => toggleTheme("dark")}>
+                Dark
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          <AuthButtons>
+            <SignInButton $dark={isDark}>Sign In</SignInButton>
+            <SignUpButton>Sign Up</SignUpButton>
+          </AuthButtons>
+        </div>
       </Container>
     </Navbar>
   );
